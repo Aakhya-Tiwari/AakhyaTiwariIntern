@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter App</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+
+        }
+
+        .container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #10182b;
+            color: #fff;
+            width: 400px;
+            height: 500px;
+            border: 8px solid red;
+            border-radius: 50px;
+
+        }
+
+        h1{
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        h2{
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .button{
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            font-size: 5rem;
+            cursor: pointer;
+            transition: 0.3s;
+
+        }
+
+        button:hover{
+            opacity: 0.8;
+        }
+
+        #decrease{
+           
+            background-color: #ef4444;
+            border-radius: 3px;
+            font-size: 1.1rem;
+        }
+
+        #increase{
+            
+            background-color: #f59e0b;
+             border-radius: 3px;
+             font-size: 1.1rem;
+           
+        }
+
+        #reset{
+             
+             background-color: #22c55e;
+             border-radius: 3px;
+            font-size: 1.1rem;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Counter App</h1>
+        <h2 id="count">0</h2>
+
+        <div class="button">
+            <button id="decrease">Decrease</button>
+            <button id="increase">Increase</button>
+            <button id="reset">Reset</button>
+        </div>
+    </div>
+
+    <script>
+let count = 0;
+
+const counter = document.getElementById("count");
+
+document.getElementById("increase").onclick = function(){
+    if(count < 15){   // MAX LIMIT
+        count++;
+        counter.innerText = count;
+    }
+};
+
+document.getElementById("decrease").onclick = function(){
+    if(count > 0){   // MIN LIMIT
+        count--;
+        counter.innerText = count;
+    }
+};
+
+document.getElementById("reset").onclick = function(){
+    count = 0;
+    counter.innerText = count;
+};
+</script>
+  
+    
+</body>
+</html>

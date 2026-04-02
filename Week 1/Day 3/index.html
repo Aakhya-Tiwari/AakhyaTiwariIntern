@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-Column Responsive Layout</title>
+  <style>
+
+
+body {
+  margin: 0;
+  font-family:'Courier New', Courier, monospace;
+  background: #f8fafc;
+  color: #333;
+}
+
+
+.header, .footer {
+  background: linear-gradient(135deg, #b0afce, #272829);
+  color: #fff;
+  padding: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+
+.main {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.main:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.sidebar {
+  background: linear-gradient(135deg, #d44706, #494d4a);
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sidebar:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+@media (min-width: 600px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .main {
+    flex: 2;
+  }
+
+  .sidebar {
+    flex: 1;
+  }
+}
+
+
+@media (min-width: 900px) {
+  body {
+    display: grid;
+    grid-template-areas:
+      "header header header"
+      "main main sidebar"
+      "footer footer footer";
+    grid-template-columns: 2fr 2fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+  }
+
+  .header {
+    grid-area: header;
+  }
+
+  .container {
+    grid-area: main / main / main / sidebar;
+    display: contents;
+  }
+
+  .main {
+    grid-area: main;
+  }
+
+  .sidebar {
+    grid-area: sidebar;
+  }
+
+  .footer {
+    grid-area: footer;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <header class="header">This is the Header</header>
+  
+  <div class="container">
+    <main class="main">
+      <h2>Main Content</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa labore quis non distinctio ipsam ex quos, sit dolorum necessitatibus odit provident.</p>
+    </main>
+
+    <aside class="sidebar">
+      <h3>This is the Sidebar</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, porro.</p>
+    </aside>
+  </div>
+  
+  <footer class="footer">This is the Footer</footer>
+
+</body>
+</html>

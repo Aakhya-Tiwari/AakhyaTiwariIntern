@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Wesbite</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body{
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  color:#fff;   
+}
+
+
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 8%;
+  position:sticky;
+  top:0;
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.nav-links{
+  display:flex;
+  gap:25px;
+  list-style:none;
+}
+
+.nav-links a{
+  color:#cbd5f5;
+  text-decoration:none;
+  position:relative;
+  transition:0.3s;
+}
+
+.nav-links a:hover{
+  color:#fff;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-5px;
+  width:0%;
+  height:2px;
+  background:#8b5cf6;
+  transition:0.3s;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+
+.point{
+  padding:10px 22px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 5px 25px rgba(139,92,246,0.4);
+}
+
+.point:hover{
+  transform:translateY(-3px) scale(1.05);
+}
+
+
+.about{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:100px 8%;
+  gap:40px;
+}
+
+.about h1{
+  font-size:60px;
+  background:linear-gradient(to right,#fff,#a5b4fc);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.about p{
+  margin:20px 0;
+  color:#cbd5f5;
+}
+
+.about img{
+  width:420px;
+  border-radius:20px;
+  box-shadow:0 25px 60px rgba(0,0,0,0.5);
+  transition:0.4s;
+}
+
+.about img:hover{
+  transform:scale(1.05);
+}
+
+
+section{
+  padding:90px 8%;
+  text-align:center;
+}
+
+
+.cards{
+  display:flex;
+  gap:25px;
+  margin-top:40px;
+}
+
+.card{
+  flex:1;
+  padding:30px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-12px) scale(1.03);
+  box-shadow:0 20px 50px rgba(0,0,0,0.5);
+}
+
+
+.gallery img{
+  width:50%;
+  border-radius:15px;
+  transition:0.4s;
+}
+
+.gallery img:hover{
+  transform:scale(1.08);
+}
+
+.gallery p{
+  font-size:14px;
+  color:#cbd5f5;
+  line-height:1.6;
+  opacity: 0.9;
+}
+
+.team img{
+  width:50%;
+  border-radius:15px;
+  margin-bottom:10px;
+}
+
+
+.blog .card{
+  text-align:left;
+}
+
+
+section p{
+  max-width:700px;
+  margin:20px auto;
+  color:#cbd5f5;
+  font-size:18px;
+}
+
+
+.contact input,
+.contact textarea{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:12px;
+  border:none;
+  background:#1e293b;
+  color:white;
+}
+
+.contact input:focus,
+.contact textarea:focus{
+  outline:none;
+  border:1px solid #8b5cf6;
+}
+
+
+.footer{
+  padding:30px;
+  background:#020617;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+
+.menu-toggle{
+  display:none;
+  font-size:26px;
+  cursor:pointer;
+}
+
+
+@media(max-width:900px){
+  .hero{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .cards,
+  .team,
+  .blog{
+    flex-direction:column;
+  }
+
+  .gallery{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .nav-links{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:70px;
+    width:100%;
+    background:#020617;
+    padding:20px;
+  }
+
+  .nav-links.active{
+    display:flex;
+  }
+
+  .hero h1{
+    font-size:34px;
+  }
+
+  .gallery{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+
+<nav class="navbar">
+  <h2>Brand.</h2>
+  <div class="menu-toggle" id="menu-toggle">☰</div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Work</a></li>
+    <li><a href="#">Team</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <button class="point">Get Started</button>
+</nav>
+
+
+<section class="about">
+  <div>
+    <h1>Create Stunning Digital Products</h1>
+    <p>We design and build modern digital experiences for forward-thinking brands.</p>
+    <button class="point">Start Project</button>
+  </div>
+  <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a">
+</section>
+
+
+<section>
+  <h2>Why Choose Us</h2>
+  <div class="cards">
+    <div class="card"><h3>Creative Design</h3><p>Unique and engaging designs.</p></div>
+    <div class="card"><h3>Fast Performance</h3><p>Optimized for speed.</p></div>
+    <div class="card"><h3>Scalable</h3><p>Grow without limits.</p></div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Our Work</h2>
+  <p>To easily write an effective work report, start by considering your purpose, audience, research, and message.</p>
+
+  <div class="gallery">
+    <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7"><p>A glimpse into our creative process where ideas turn into reality. Our team collaborates in a dynamic environment designed to inspire innovation and productivity.</p>
+    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"><p>Collaboration is at the heart of everything we do. We believe that great ideas come from diverse minds working together toward a common goal.</p>
+    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"><p>Using cutting-edge technologies, we build fast, scalable, and reliable applications that power businesses across the globe.</p>
+    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"><p>Every successful project begins with a strong strategy. We analyze, plan, and execute solutions that align with your business goals.</p>
+    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"><p>Our developers focus on clean, efficient code to ensure high performance and long-term maintainability of your digital products.</p>
+    <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2"><p>Design is not just about aesthetics — it's about creating meaningful experiences that users love and remember.</p>
+  </div>
+</section>
+
+
+<section>
+  <h2>Meet Our Team</h2>
+  <div class="team">
+    <div class="card">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg">
+      <h3>Damon Salvatore</h3>
+      <p>Lead Developer</p>
+    </div>
+    <div class="card">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg">
+      <h3>Bonnie Bennett</h3>
+      <p>UI Designer</p>
+    </div>
+    <div class="card">
+      <img src="https://randomuser.me/api/portraits/men/76.jpg">
+      <h3>Matt Donovan</h3>
+      <p>Project Manager</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Latest Insights</h2>
+  <div class="blog">
+    <div class="card">
+      <h3>Design Trends 2026</h3>
+      <p>highlight how AI is enovolving and enhancing creativity and human touch.</p>
+    </div>
+    <div class="card">
+      <h3>Building Fast Apps</h3>
+      <p>Learn how to develop IOS apps and games.</p>
+    </div>
+    <div class="card">
+      <h3>UX Best Practices</h3>
+      <p>Create better user experiences with proven methods.</p>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>What Clients Say</h2>
+  <p>"One of the best teams we have worked with. Highly recommended!"</p>
+</section>
+
+
+<section class="contact">
+  <h2>Contact Us</h2>
+  <input type="text" placeholder="Your Name">
+  <input type="email" placeholder="Your Email">
+  <textarea rows="5" placeholder="Your Message"></textarea>
+  <button class="point">Send Message</button>
+</section>
+
+
+<footer class="footer">
+  <p>© 2026 Brand. All rights reserved.</p>
+</footer>
+
+<script>
+const toggle=document.getElementById("menu-toggle");
+const nav=document.getElementById("nav-links");
+toggle.onclick=()=>nav.classList.toggle("active");
+</script>
+
+</body>
+</html>
