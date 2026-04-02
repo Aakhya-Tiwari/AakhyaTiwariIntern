@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Calculator</title>
+
+<style>
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  background:#2c364b;
+  font-family:Arial;
+}
+
+.container{
+  background:rgb(141, 60, 60);
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.1);
+  text-align:center;
+  width:300px;
+}
+
+input{
+  width:90%;
+  padding:10px;
+  margin:10px 0;
+  font-size:18px;
+  background-color: #00040c;
+  color: aliceblue;
+}
+
+button{
+  padding:10px 15px;
+  margin:5px;
+  font-size:16px;
+  cursor:pointer;
+  background-color: #00040c;
+  color: aliceblue;
+}
+
+.result{
+  margin-top:15px;
+  font-size:20px;
+  font-weight:bold;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Calculator</h2>
+
+  <input type="number" id="num1" placeholder="Enter first number">
+  <input type="number" id="num2" placeholder="Enter second number">
+
+  <div>
+    <button onclick="calculate('add')">+</button>
+    <button onclick="calculate('sub')">-</button>
+    <button onclick="calculate('mul')">*</button>
+    <button onclick="calculate('div')">/</button>
+  </div>
+
+  <div class="result" id="result">Result: 0</div>
+</div>
+
+<script>
+
+function add(a,b){
+  return a + b;
+}
+
+function subtract(a,b){
+  return a - b;
+}
+
+function multiply(a,b){
+  return a * b;
+}
+
+function divide(a,b){
+  if(b === 0){
+    return "Cannot divide by zero";
+  }
+  return a / b;
+}
+
+function calculate(operation){
+
+  let num1 = parseFloat(document.getElementById("num1").value);
+  let num2 = parseFloat(document.getElementById("num2").value);
+  let result;
+
+  if(isNaN(num1) || isNaN(num2)){
+    document.getElementById("result").innerText = "Enter valid numbers";
+    return;
+  }
+
+  switch(operation){
+    case 'add':
+      result = add(num1, num2);
+      break;
+
+    case 'sub':
+      result = subtract(num1, num2);
+      break;
+
+    case 'mul':
+      result = multiply(num1, num2);
+      break;
+
+    case 'div':
+      result = divide(num1, num2);
+      break;
+
+    default:
+      result = "Invalid operation";
+  }
+
+  document.getElementById("result").innerText = "Result: " + result;
+}
+</script>
+
+</body>
+</html>
