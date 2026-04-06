@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Filter</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search input,
+        .search select,
+        .search button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .products.list {
+            display: block;
+        }
+
+
+        .card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: green;
+            font-weight: bold;
+        }
+
+        .category {
+            font-size: 12px;
+            color: #666;
+        }
+
+
+        .list .card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Product Store</h1>
+
+    <div class="search">
+        <input type="text" id="search" placeholder="Search product">
+
+        <select id="category">
+            <option value="all">All Categories</option>
+            <option value="electronics">Electronics</option>
+            <option value="fashion">Fashion</option>
+        </select>
+
+        <select id="price">
+            <option value="all">All Prices</option>
+            <option value="low">Below 1000</option>
+            <option value="mid">1000 - 3000</option>
+            <option value="high">Above 3000</option>
+        </select>
+
+        <select id="sort">
+            <option value="default">Sort</option>
+            <option value="low">Low to High</option>
+            <option value="high">High to Low</option>
+        </select>
+
+        <button onclick="toggleView()">Toggle View</button>
+    </div>
+
+    <div id="productContainer" class="products"></div>
+
+    <script>
+        const products = [
+            { name: "Laptop", price: 50000, category: "electronics" },
+            { name: "Headphones", price: 1500, category: "electronics" },
+            { name: "Shoes", price: 1200, category: "fashion" },
+            { name: "T-shirt", price: 500, category: "fashion" },
+            { name: "Phone", price: 20000, category: "electronics" },
+            { name: "Jacket", price: 3000, category: "fashion" }
+        ];
+
+        let filteredProducts = [...products];
+        let isGrid = true;
+
+        function renderProducts(data) {
+            const container = document.getElementById("productContainer");
+            container.innerHTML = "";
+
+            data.forEach(p => {
+                container.innerHTML += `
+            <div class="card">
+                <div>
+                    <h3>${p.name}</h3>
+                    <p class="price">₹${p.price}</p>
+                    <p class="category">${p.category}</p>
+                </div>
+            </div>
+        `;
+            });
+        }
+        function applyFilters() {
+            const search = document.getElementById("search").value.toLowerCase();
+            const category = document.getElementById("category").value;
+            const price = document.getElementById("price").value;
+            const sort = document.getElementById("sort").value;
+
+            filteredProducts = products.filter(p => {
+                return (
+                    p.name.toLowerCase().includes(search) &&
+                    (category === "all" || p.category === category) &&
+                    (
+                        price === "all" ||
+                        (price === "low" && p.price < 1000) ||
+                        (price === "mid" && p.price >= 1000 && p.price <= 3000) ||
+                        (price === "high" && p.price > 3000)
+                    )
+                );
+            });
+
+
+            if (sort === "low") {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            }
+            else if (sort === "high") {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            }
+
+            renderProducts(filteredProducts);
+        }
+
+        function toggleView() {
+            const container = document.getElementById("productContainer");
+            isGrid = !isGrid;
+            container.classList.toggle("list");
+        }
+
+        document.getElementById("search").addEventListener("input", applyFilters);
+        document.getElementById("category").addEventListener("change", applyFilters);
+        document.getElementById("price").addEventListener("change", applyFilters);
+        document.getElementById("sort").addEventListener("change", applyFilters);
+
+        renderProducts(products);
+
+    </script>
+
+</body>
+
+</html>
