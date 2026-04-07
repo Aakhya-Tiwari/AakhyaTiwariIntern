@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Quiz App</title>
+
+<style>
+
+</style>
+
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="progress" id="progress"></div>
+    <h2 id="question">Loading...</h2>
+    <div id="options"></div>
+    <button id="nextBtn">Next</button>
+</div>
+
+<script>
+
+const fetchQuestions = () => new Promise(resolve => {
+    setTimeout(() => {
+        resolve([
+            {
+                question: "What is JavaScript?",
+                options: ["Language", "Framework", "Library", "Tool"],
+                answer: "Language"
+            },
+            {
+    question: "Which keyword declares variable?",
+                options: ["var", "let", "const", "All"],
+                answer: "All"
+            },
+            {
+                question: "Which is ES6 feature?",
+                options: ["Arrow Function", "var", "function", "loop"],
+                answer: "Arrow Function"
+            }
+        ]);
+    }, 400);
+});
+
+let questions = [];
+let currentIndex = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const nextBtn = document.getElementById("nextBtn");
+const progressEl = document.getElementById("progress");
+
+const init = async () => {
+    questions = await fetchQuestions();
+    renderQuestion();
+};
+
+const renderQuestion = () => {
+    const { question, options } = questions[currentIndex];
+
+    questionEl.textContent = question;
+    progressEl.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+
+    optionsEl.innerHTML = options.map(opt =>
+        `<div class="option">${opt}</div>`
+    ).join("");
+
+    document.querySelectorAll(".option").forEach(opt => {
+        opt.addEventListener("click", selectAnswer);
+    });
+};
+
+const selectAnswer = (e) => {
+    const selected = e.target.textContent;
+    const correct = questions[currentIndex].answer;
+
+    document.querySelectorAll(".option").forEach(opt => {
+        opt.style.pointerEvents = "none";
+
+        if(opt.textContent === correct) opt.classList.add("correct");
+        if(opt.textContent === selected && selected !== correct) opt.classList.add("wrong");
+    });
+
+    if(selected === correct) score++;
+};
+
+nextBtn.addEventListener("click", () => {
+    currentIndex++;
+    currentIndex < questions.length ? renderQuestion() : showScore();
+});
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beautiful To-Do App</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    height:100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.app{
+    width:900px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    border-radius:20px;
+    padding:30px;
+    color:#fff;
+    box-shadow:0 8px 30px rgba(0,0,0,0.3);
+}
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.input-section{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.input-section input{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    outline:none;
+}
+
+.input-section button{
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    background:#22c55e;
+    color:#fff;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.input-section button:hover{
+    background:#16a34a;
+}
+
+.container{
+    display:flex;
+    gap:20px;
+}
+
+.section{
+    flex:1;
+    background: rgba(255,255,255,0.15);
+    padding:15px;
+    border-radius:15px;
+}
+
+.section h2{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.task{
+    background: rgba(255,255,255,0.2);
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:0.3s;
+}
+
+.task:hover{
+    transform:scale(1.02);
+}
+
+.task span{
+    font-weight:500;
+}
+
+.task small{
+    display:block;
+    font-size:12px;
+    opacity:0.8;
+}
+
+.actions button{
+    border:none;
+    padding:6px 10px;
+    margin-left:5px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.complete-btn{
+    background:#22c55e;
+    color:white;
+}
+
+.delete-btn{
+    background:#ef4444;
+    color:white;
+}
+.empty{
+    text-align:center;
+    opacity:0.7;
+}
+</style>
+
+</head>
+<body>
+
+<div class="app">
+    <h1>✨ My To-Do App</h1>
+
+    <div class="input-section">
+        <input type="text" id="taskInput" placeholder="Enter task...">
+        <input type="date" id="dueDate">
+        <button onclick="addTask()">Add</button>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>⏳ Pending</h2>
+            <div id="pendingList"></div>
+        </div>
+
+        <div class="section">
+            <h2>✅ Completed</h2>
+            <div id="completedList"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function saveTasks(){
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function addTask(){
+    const input = document.getElementById("taskInput");
+    const date = document.getElementById("dueDate");
+
+    if(input.value.trim() === "") return;
+
+    const task = {
+        id: Date.now(),
+        text: input.value,
+        dueDate: date.value,
+        completed: false
+    };
+
+    tasks.push(task);
+    saveTasks();
+    renderTasks();
+
+    input.value = "";
+    date.value = "";
+}
+
+function toggleComplete(id){
+    tasks = tasks.map(t =>
+        t.id === id ? {...t, completed: !t.completed} : t
+    );
+    saveTasks();
+    renderTasks();
+}
+
+function deleteTask(id){
+    tasks = tasks.filter(t => t.id !== id);
+    saveTasks();
+    renderTasks();
+}
+
+function renderTasks(){
+    const pending = document.getElementById("pendingList");
+    const completed = document.getElementById("completedList");
+
+    pending.innerHTML = "";
+    completed.innerHTML = "";
+
+    let pendingCount = 0;
+    let completedCount = 0;
+
+    tasks.forEach(task => {
+        const div = document.createElement("div");
+        div.className = "task";
+
+        div.innerHTML = `
+            <div>
+                <span>${task.text}</span>
+                <small>Due: ${task.dueDate || "No date"}</small>
+            </div>
+            <div class="actions">
+                <button class="complete-btn" onclick="toggleComplete(${task.id})">
+                    ${task.completed ? "Undo" : "Done"}
+                </button>
+                <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
+            </div>
+        `;
+
+        if(task.completed){
+            completed.appendChild(div);
+            completedCount++;
+        } else {
+            pending.appendChild(div);
+            pendingCount++;
+        }
+    });
+
+    if(pendingCount === 0){
+        pending.innerHTML = `<p class="empty">No pending tasks</p>`;
+    }
+
+    if(completedCount === 0){
+        completed.innerHTML = `<p class="empty">No completed tasks</p>`;
+    }
+}
+
+renderTasks();
+
+</script>
+
+</body>
+</html>
