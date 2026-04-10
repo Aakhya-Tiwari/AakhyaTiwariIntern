@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counter App</title>
+    <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ea6f66, #161616);
+}
+
+.container {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.count {
+  font-size: 60px;
+  font-weight: bold;
+  margin: 20px 0;
+  color: #764ba2;
+  transition: transform 0.2s ease;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+button:nth-child(2) {
+  background: #28a745;
+}
+
+button:nth-child(1) {
+  background: #dc3545;
+}
+
+.reset {
+  width: 100%;
+  background: #333;
+  font-size: 16px;
+}
+button:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
+  transform: none;
+}
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+<!-- http://localhost:5173/ -->
